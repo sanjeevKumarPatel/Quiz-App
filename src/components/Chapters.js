@@ -1,14 +1,17 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View,TouchableOpacity } from 'react-native'
 import React from 'react'
+import * as Animatable from 'react-native-animatable';
+
+const AnimatableTouchableOpacity = Animatable.createAnimatableComponent(TouchableOpacity);
 
 const Chapters = ({title,click}) => {
   return (
-    <Pressable 
+    <AnimatableTouchableOpacity  animation={'pulse'} iterationCount={'infinite'}
     onPress={()=>click()}
-    style={{borderBottomWidth:4,padding:8,backgroundColor:'lightblue',borderBottomColor:"blue"}}>
+    style={{padding:8,backgroundColor:'#0D4C92',borderColor:"blue",marginHorizontal:20,marginVertical:2,borderRadius:24,elevation:3}}>
 
-    <Text style={{color:'black',fontSize:22,fontWeight:'900',padding:22,textAlign:"center",}}>{title}</Text>
-      </Pressable>
+    <Text style={{color:'#F2F7A1',fontSize:22,fontWeight:'900',padding:14,textAlign:"center",}}>{title}</Text>
+      </AnimatableTouchableOpacity>
   )
 }
 

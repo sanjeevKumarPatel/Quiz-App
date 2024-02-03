@@ -1,123 +1,223 @@
-import { ActivityIndicator, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Image, ScrollView, StatusBar, Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import firestore from '@react-native-firebase/firestore';
+import Header from '../components/Header';
+import Subjects from '../components/Subjects';
+import { useNavigation } from '@react-navigation/native';
+import * as Animatable from 'react-native-animatable';
 
-const Playground = () => {
-const [currentIndex,setCurrentIndex] = useState(0)
-const [points,setPoints] = useState(0)
-const [selectedAnswer,setSelectedAnswer] = useState(null)
-const [questions,setQuestions] = useState([])
-const currentQuestion = questions[currentIndex]
-const correctAnswer = currentQuestion?.correctAnswer;
 
-const getQuestions = ()=>{
-  firestore().collection('EnglishQuizApp').where('identification' , "=="  ,'comp010201' ).get().then(
-    query=>{ 
-      
-     
-      const allQuestions = query.docs.map(doc =>doc.data())
-     setQuestions(allQuestions);
-    })
-}
+const AnimatableTouchableOpacity = Animatable.createAnimatableComponent(TouchableOpacity);
+const Playground = ({ route }) => {
+  const navigation = useNavigation();
+
+  const { set, subject, chapter, level, totalLevel } = route.params
+
+
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [points, setPoints] = useState(0)
+  const [selectedAnswer, setSelectedAnswer] = useState(null)
+  const [questions, setQuestions] = useState([])
+  const currentQuestion = questions[currentIndex]
+
+  const [answers,setAnswers] = useState([]);
+ 
+  const correctAnswer = currentQuestion?.correctAnswer;
+
+  const getQuestions = () => {
+    firestore().collection('EnglishQuizApp').where('identification', "==", set).get().then(
+      query => {
+        const allQuestions = query.docs.map(doc => doc.data())
+        setQuestions(allQuestions);
+      })
+  }
+
+  useEffect(() => {
+    getQuestions()
+
+  }, [])
+
 
 useEffect(()=>{
 
-  getQuestions()
-      
-  
-    
-    
-},[])
- 
+  if(selectedAnswer !== null){
+    if(selectedAnswer === correctAnswer){
+      setPoints((points)=>points + 10)
+      answers.push({question: currentIndex + 1 , answer:true})
+    }else{
+      answers.push({question: currentIndex + 1 , answer:false})
+    }
+  }
+},[selectedAnswer])
 
 
+
+
+
+  const progressPercentage = Math.floor(((currentIndex + 1) / questions.length) * 100);
+
+
+  const handleBackgroundColor = (option) => {
+    if (selectedAnswer !== null && correctAnswer == option) {
+      return { backgroundColor: "green" }
+    } else if (
+      selectedAnswer == option && correctAnswer == option
+    ) {
+      return { backgroundColor: "green" }
+    } else if (selectedAnswer == option && correctAnswer !== selectedAnswer) {
+      return { backgroundColor: 'red' }
+    }
+
+  }
 
 
   return (
-    <View style={{marginTop:StatusBar.currentHeight}}>
-      <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+    <View style={{ marginTop: StatusBar.currentHeight, flex: 1 }}>
 
-      <Text style={styles.text}>Subject: Computer</Text>
-      <Text style={styles.text}>Set 1 / 4</Text>
-      </View>
-      <Text style={{textAlign:'center'}}>
-          Question 1 / 12
-        </Text>
-      <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-        <Text style={styles.text}>
-          Wrong Answers : 5
-        </Text >
-        <Text style={{fontSize:22,}}>
-         Correct Answers : 2
+      {/* /////////------------ header--------- ///////////////////    */}
+
+      <Header leftIcon={require('../assets/images/back.png')} title={"Quiz"} RightIcon={require('../assets/images/dots.png')} onClickLeftIcon={()=>navigation.goBack()}/>
+
+      <View style={{ height: 4, width: `${progressPercentage}%`, backgroundColor: 'green' }}></View>
+      {/* ---------------- Subject and Sets and level ------------ */}
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 12 }}>
+
+        <Animatable.Text animation={'bounceIn'}  style={styles.text}>{subject} </Animatable.Text>
+        <Text style={[styles.text]}>
+          Score: {points}
         </Text>
       </View>
 
-      <View style={{padding:10}}>
-        <Text style={{borderWidth:.5,padding:8,fontSize:22,fontWeight:'500',color:'darkgreen',borderRadius:2}}>
-          Q.{currentIndex+1}_ {currentQuestion ? currentQuestion?.question: <ActivityIndicator size='small'/>}
-        </Text>
+      <View>
 
 
 
 
-        <TouchableOpacity 
-        style={[selectedAnswer == "a" && correctAnswer == selectedAnswer ? {backgroundColor:"green"} :
-        selectedAnswer == "a" && correctAnswer !== 'a' ? {backgroundColor:"red"} : correctAnswer !== "a" && selectedAnswer !== 'a'  ? {backgroundColor:"white"} : null ]}
-        onPress={()=>{
-          if(currentQuestion){
-setSelectedAnswer("a")
-          }
+      </View>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 12, }}>
+
+        <Animatable.Text animation={'bounce'} style={styles.text}> Que_ {currentIndex + 1}/{questions.length}</Animatable.Text>
+        
+
+      </View>
+      <View style={{justifyContent:'center',alignItems:'center'}}>
+      <Animatable.Text animation={'bounce'} style={styles.text}>
+          {chapter}_{level}/{totalLevel}
+        </Animatable.Text >
+      </View>
+      {/* --------------- Questions  ------------------- */}
+
+      <View style={{ padding: 10 }}>
+        <Animatable.Text animation={'fadeInRight'} style={{ borderWidth: .5, padding: 8, fontSize: 18, fontWeight: '600', color: 'darkblue', borderRadius: 2 }}>
+          Q.{currentIndex + 1}_ {currentQuestion ? currentQuestion?.question : <ActivityIndicator size='small' />}
+        </Animatable.Text>
+
+        {/* ------------------ opttions for select answers ------------ */}
+
+
+        <AnimatableTouchableOpacity activeOpacity={.8} animation={'fadeInLeft'}
+          style={[styles.options, handleBackgroundColor("a")]}
+          onPress={() => {
+            if (currentQuestion && selectedAnswer === null) { setSelectedAnswer("a") }
           }}>
-        <Text style={styles.optionText}>
-          A. {currentQuestion?.optionA}
-        </Text>
-        </TouchableOpacity>
+          <Text style={styles.optionText}>
+            A. {currentQuestion?.optionA}
+          </Text>
+        </AnimatableTouchableOpacity>
 
-
-
-
-        <TouchableOpacity 
-        style={[selectedAnswer == "b" && correctAnswer == selectedAnswer ? {backgroundColor:"green"} :
-        selectedAnswer == "b" && correctAnswer !== 'b' ? {backgroundColor:"red"} :  selectedAnswer !== null && correctAnswer === "b" ? {backgroundColor:"green"} : null ]}
-        onPress={()=>{
-          if(currentQuestion){
-setSelectedAnswer("b")
-          }
+        <AnimatableTouchableOpacity   activeOpacity={.8}  animation={'fadeInLeft'}
+          style={[styles.options, handleBackgroundColor("b")]}
+          onPress={() => {
+            if (currentQuestion && selectedAnswer === null) {
+              setSelectedAnswer("b")
+            }
           }}>
-        <Text style={styles.optionText}>
-          B. {currentQuestion?.optionB}
-        </Text>
-        </TouchableOpacity>
+          <Text style={styles.optionText}>
+            B. {currentQuestion?.optionB}
+          </Text>
+        </AnimatableTouchableOpacity>
 
 
-        <TouchableOpacity 
-        style={[selectedAnswer == "c" && correctAnswer == selectedAnswer ? {backgroundColor:"green"} :
-        selectedAnswer == "c" && correctAnswer !== 'c' ? {backgroundColor:"red"} : correctAnswer === "c" && selectedAnswer !== null  ? {backgroundColor:"white"} : null ]}
-        onPress={()=>{
-          if(currentQuestion){
-setSelectedAnswer("c")
-          }
+        <AnimatableTouchableOpacity  activeOpacity={.8}   animation={'fadeInLeft'}
+          style={[styles.options, handleBackgroundColor("c")]}
+          onPress={() => {
+            if (currentQuestion && selectedAnswer === null) {
+              setSelectedAnswer("c")
+            }
           }}>
-        <Text style={styles.optionText}>
-          C. {currentQuestion?.optionC}
-        </Text>
-        </TouchableOpacity>
+          <Text style={styles.optionText}>
+            C. {currentQuestion?.optionC}
+          </Text>
+        </AnimatableTouchableOpacity>
 
-        <TouchableOpacity 
-        style={[selectedAnswer == "d" && correctAnswer == selectedAnswer ? {backgroundColor:"green"} :
-        selectedAnswer == "d" && correctAnswer !== 'd' ? {backgroundColor:"red"} : correctAnswer !== "d" && selectedAnswer !== 'd'  ? {backgroundColor:"white"} : null  , ]}
-        onPress={()=>{
-          if(currentQuestion){
-setSelectedAnswer("d")
-          }
+        <AnimatableTouchableOpacity activeOpacity={.8} animation={'fadeInLeft'}
+          style={[styles.options, handleBackgroundColor("d")]}
+          onPress={() => {
+            if (currentQuestion && selectedAnswer === null) {
+              setSelectedAnswer("d")
+            }
           }}>
-        <Text style={styles.optionText}>
-          D. {currentQuestion?.optionD}
-        </Text>
-        </TouchableOpacity>
+          <Text  style={styles.optionText}>
+            D. {currentQuestion?.optionD}
+          </Text>
+        </AnimatableTouchableOpacity>
+
+
+      </View>
+
+
+      {/* ===========   Explainations ===================== */}
+
+      {
+        (selectedAnswer !== null) ?
+          <View style={{ marginHorizontal: 14, backgroundColor: "white",height:250 }}>
+            <Animatable.Text animation="slideInUp" style={{ paddingTop: 12, textAlign: 'center', fontWeight: '800', fontSize: 16, textDecorationLine: 'underline', marginBottom: -1, }}>Explaination</Animatable.Text>
+            <ScrollView>
+              <Animatable.Text animation="slideInUp" direction="alternate" style={{ paddingHorizontal: 10, fontSize: 16, fontWeight: '500', color: 'black' }}>
+
+                {currentQuestion?.explaination}
+
+              </Animatable.Text>
+            </ScrollView>
+          </View>
+          : null
+
+      }
+      {/* ====================================================   */}
+      <View style={{ flexDirection: 'row', position: 'absolute', bottom: 20 ,right:10,}}>
        
 
+
+        {/* /// Submit buttton  and next button */}
+
+        {(currentIndex + 1 === questions.length) ? <TouchableOpacity
+          onPress={() => { 
+            selectedAnswer !== null ? (navigation.navigate('Results',{points:points,answers:answers}),
+            setSelectedAnswer(null)) :  Alert.alert("Hi..",'First selecet any option then press Submit button')
+
+          }}
+          style={{ justifyContent: 'flex-end', paddingRight: 14, alignItems: 'flex-end', }}>
+       <Animatable.Image animation={'bounce'}  iterationCount={'infinite'} source={require('../assets/images/check.png')} style={{height:65,width:65}}/>
+
+        </TouchableOpacity>
+          : <TouchableOpacity
+            onPress={() => {
+              selectedAnswer !== null ? setCurrentIndex(currentIndex => currentIndex + 1) : Alert.alert("Hi..",'First selecet any option then press next button')
+              setSelectedAnswer(null)
+
+            }}
+            style={{  paddingRight: 14, alignItems: 'flex-end',  }}>
+            <Animatable.Image source={require('../assets/images/next.png')} style={{ height: 65, width: 65 }} animation={'pulse'} iterationCount={'infinite'} />
+
+
+          </TouchableOpacity>
+        }
+        {/* ========================================== */}
+
+
+
       </View>
+
 
     </View>
   )
@@ -126,14 +226,14 @@ setSelectedAnswer("d")
 export default Playground
 
 const styles = StyleSheet.create({
-text:{
-  color:'blue',
-  fontSize:24,fontWeight:'600',
-},
-options:{
- elevation:4,padding:8,margin:8,borderRadius:4
-}
-,optionText:{
-  fontSize:18,fontWeight:'600',padding:4
-}
+  text: {
+    color: 'blue',
+    fontSize: 16, fontWeight: '600',
+  },
+  options: {
+    paddingHorizontal: 20, margin: 8, borderRadius: 4, justifyContent: 'center', paddingTop: 12, paddingBottom: 12, backgroundColor: 'white', elevation: 3
+  }
+  , optionText: {
+    fontSize: 16, fontWeight: '600', textAlignVertical: 'center'
+  }
 })

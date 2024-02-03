@@ -9,19 +9,20 @@ import Playground from './src/screens/Playground';
 import Study from './src/screens/Study';
 import Computer from './src/subjects/Computer';
 import Level from './src/screens/Level';
-
+import Drawer from './src/screens/Drawer';
 const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name="Splash" component={Splash} options={{headerShown:false}}/>
-      <Stack.Screen name="Home" component={Home} options={{headerShown:false}}/>
-      <Stack.Screen name="Results" component={Results} options={{headerShown:false}}/>
-      <Stack.Screen name="Playground" component={Playground} options={{headerShown:false}}/>
-      <Stack.Screen name="Study" component={Study} options={{headerShown:false}}/>
-      <Stack.Screen name="Computer" component={Computer} options={{headerShown:false}}/>
+      <Stack.Screen name="Drawer" component={Drawer} options={{headerShown:false}}/>
+
+     
       <Stack.Screen name="Level" component={Level} options={{headerShown:false}}/>
+      <Stack.Screen name="Study" component={Study} options={{headerShown:false}}/>
+      <Stack.Screen name="Playground" component={Playground} options={{headerShown:false}}/>
+      <Stack.Screen name="Results" component={Results} options={{headerShown:false}}/>
 
 
 

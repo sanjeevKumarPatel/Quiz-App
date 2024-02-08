@@ -1,4 +1,5 @@
 {
     "workbench.colorTheme": "Default Dark Modern",
-    "workbench.preferredDarkColorTheme": "Visual Studio Dark"
+    "workbench.preferredDarkColorTheme": "Visual Studio Dark",
+    "java.configuration.updateBuildConfiguration": "disabled"
 }

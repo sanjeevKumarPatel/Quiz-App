@@ -3,7 +3,7 @@ import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 const Drawer = createDrawerNavigator();
-import Computer from '../subjects/Computer';
+import Computer from '../subjects/computer/ComputerQuiz';
 import Home from './Home';
 const DrawerScreen = () => {
   return (

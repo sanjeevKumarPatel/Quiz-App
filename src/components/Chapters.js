@@ -6,11 +6,11 @@ const AnimatableTouchableOpacity = Animatable.createAnimatableComponent(Touchabl
 
 const Chapters = ({title,click}) => {
   return (
-    <AnimatableTouchableOpacity  animation={'pulse'} iterationCount={'infinite'}
+    <AnimatableTouchableOpacity  animation={'pulse'} iterationCount={5}
     onPress={()=>click()}
-    style={{padding:8,backgroundColor:'#0D4C92',borderColor:"blue",marginHorizontal:20,marginVertical:2,borderRadius:24,elevation:3}}>
+    style={{padding:8,backgroundColor:'#ffff',marginHorizontal:20,marginVertical:4,borderRadius:4,elevation:5}}>
 
-    <Text style={{color:'#F2F7A1',fontSize:22,fontWeight:'900',padding:14,textAlign:"center",}}>{title}</Text>
+    <Text style={{color:'darkblue',fontSize:18,fontWeight:'700',padding:8,textAlign:"center",}}>{title}</Text>
       </AnimatableTouchableOpacity>
   )
 }

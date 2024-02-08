@@ -1,4 +1,4 @@
-import { Image, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Image, ScrollView, StatusBar, StyleSheet, Text, View,Button } from 'react-native'
 import React from 'react'
 import * as Animatable from 'react-native-animatable';
 import Header from '../components/Header';
@@ -13,7 +13,7 @@ const Results = ({navigation,route}) => {
    <Header leftIcon={require('../assets/images/home.png')} title={"Result"} RightIcon={require('../assets/images/dots.png')} onClickLeftIcon={()=>navigation.navigate('Home')}/>
 
 
-      <ScrollView style={{marginTop:20}}>
+      <ScrollView style={{marginTop:6}}>
 
       {answers.map(({answer,question,index})=>(answer == true ? 
       <View key={Math.random()*10} style={{flexDirection:'row',padding:8,alignItems:'center',borderWidth: .6,marginHorizontal:45,marginVertical:2,justifyContent:'space-around',borderRadius:4}}>
@@ -27,10 +27,13 @@ const Results = ({navigation,route}) => {
 
       </View>))}
         </ScrollView>
-        <View style={{borderWidth:10,padding:23,borderColor:'blue',borderRadius:6,marginBottom:20,backgroundColor:'lightgreen', margin:10}}> 
-        <Animatable.Text animation={'pulse'} iterationCount={'infinite'} style={{fontSize:26,fontWeight:'800',textAlign:'center',color:'red'}}> You have socred: {points}</Animatable.Text>
+        <View style={{borderWidth:1,padding:12,borderColor:'blue',borderRadius:6,backgroundColor:'lightgreen', margin:10}}> 
+
+        <Animatable.Text animation={'fadeInUp'} style={{fontSize:26,fontWeight:'800',textAlign:'center',color:'red'  ,borderWidth:.4,marginHorizontal:12}}> You have socred : {points}</Animatable.Text>
+<View style={{height:12}}></View>
+        <Button title="Back to Home" onPress={()=>navigation.navigate('Home')}></Button>
         </View>
-<StatusBar hidden></StatusBar>
+
     </View>
   )
 }

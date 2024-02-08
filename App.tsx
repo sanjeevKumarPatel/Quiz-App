@@ -7,7 +7,7 @@ import Splash from './src/screens/Splash';
 import Results from './src/screens/Results';
 import Playground from './src/screens/Playground';
 import Study from './src/screens/Study';
-import Computer from './src/subjects/Computer';
+import Computer from './src/subjects/computer/ComputerQuiz';
 import Level from './src/screens/Level';
 import Drawer from './src/screens/Drawer';
 const Stack = createNativeStackNavigator();

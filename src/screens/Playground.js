@@ -5,7 +5,9 @@ import Header from '../components/Header';
 import Subjects from '../components/Subjects';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 
+const adUnitId = __DEV__ ? TestIds.APP_OPEN : 'ca-app-pub-7036694557736762/7656612630';
 
 const AnimatableTouchableOpacity = Animatable.createAnimatableComponent(TouchableOpacity);
 const Playground = ({ route }) => {
@@ -59,26 +61,32 @@ useEffect(()=>{
 
   const handleBackgroundColor = (option) => {
     if (selectedAnswer !== null && correctAnswer == option) {
-      return { backgroundColor: "green" }
+      return { backgroundColor: "#A8DF8E" }
     } else if (
       selectedAnswer == option && correctAnswer == option
     ) {
-      return { backgroundColor: "green" }
+      return { backgroundColor: "#A8DF8E" }
     } else if (selectedAnswer == option && correctAnswer !== selectedAnswer) {
-      return { backgroundColor: 'red' }
+      return { backgroundColor: '#FF6868' }
     }
 
   }
 
 
   return (
-    <View style={{ marginTop: StatusBar.currentHeight, flex: 1 }}>
+    <View style={{flex:1,position:'relative'}}>
 
       {/* /////////------------ header--------- ///////////////////    */}
+ 
 
       <Header leftIcon={require('../assets/images/back.png')} title={"Quiz"} RightIcon={require('../assets/images/dots.png')} onClickLeftIcon={()=>navigation.goBack()}/>
 
-      <View style={{ height: 4, width: `${progressPercentage}%`, backgroundColor: 'green' }}></View>
+
+      <View style={{ height: 4, width: `${progressPercentage}%`, backgroundColor: 'green' }}>
+
+
+
+      </View>
       {/* ---------------- Subject and Sets and level ------------ */}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 12 }}>
 
@@ -108,8 +116,8 @@ useEffect(()=>{
       {/* --------------- Questions  ------------------- */}
 
       <View style={{ padding: 10 }}>
-        <Animatable.Text animation={'fadeInRight'} style={{ borderWidth: .5, padding: 8, fontSize: 18, fontWeight: '600', color: 'darkblue', borderRadius: 2 }}>
-          Q.{currentIndex + 1}_ {currentQuestion ? currentQuestion?.question : <ActivityIndicator size='small' />}
+        <Animatable.Text animation={'fadeInRight'} style={{ borderWidth: .5, padding: 8, fontSize: 18, fontWeight: '600', color: 'darkblue', borderRadius: 2,marginBottom:4 }}>
+          Q.{currentIndex + 1}_ {currentQuestion ? currentQuestion?.question : <ActivityIndicator   />}
         </Animatable.Text>
 
         {/* ------------------ opttions for select answers ------------ */}
@@ -165,14 +173,21 @@ useEffect(()=>{
 
       </View>
 
+      
+      {/* <BannerAd
+      unitId={adUnitId}
+      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+    /> 
+ */}
+
 
       {/* ===========   Explainations ===================== */}
 
       {
         (selectedAnswer !== null) ?
-          <View style={{ marginHorizontal: 14, backgroundColor: "white",height:250 }}>
+          <View style={{ marginHorizontal: 14, backgroundColor: "white", }}>
             <Animatable.Text animation="slideInUp" style={{ paddingTop: 12, textAlign: 'center', fontWeight: '800', fontSize: 16, textDecorationLine: 'underline', marginBottom: -1, }}>Explaination</Animatable.Text>
-            <ScrollView>
+            <ScrollView style={{height:100}}>
               <Animatable.Text animation="slideInUp" direction="alternate" style={{ paddingHorizontal: 10, fontSize: 16, fontWeight: '500', color: 'black' }}>
 
                 {currentQuestion?.explaination}
@@ -184,7 +199,7 @@ useEffect(()=>{
 
       }
       {/* ====================================================   */}
-      <View style={{ flexDirection: 'row', position: 'absolute', bottom: 20 ,right:10,}}>
+      <View style={{ flexDirection: 'row', position: 'absolute', bottom: 20 ,right:10,opacity:.8}}>
        
 
 
@@ -197,7 +212,7 @@ useEffect(()=>{
 
           }}
           style={{ justifyContent: 'flex-end', paddingRight: 14, alignItems: 'flex-end', }}>
-       <Animatable.Image animation={'bounce'}  iterationCount={'infinite'} source={require('../assets/images/check.png')} style={{height:65,width:65}}/>
+       <Animatable.Image animation={'bounce'}  iterationCount={4} source={require('../assets/images/check.png')} style={{height:65,width:65,}}/>
 
         </TouchableOpacity>
           : <TouchableOpacity
@@ -207,17 +222,13 @@ useEffect(()=>{
 
             }}
             style={{  paddingRight: 14, alignItems: 'flex-end',  }}>
-            <Animatable.Image source={require('../assets/images/next.png')} style={{ height: 65, width: 65 }} animation={'pulse'} iterationCount={'infinite'} />
+            <Animatable.Image source={require('../assets/images/next.png')} style={{ height: 65, width: 65 }} animation={'pulse'} iterationCount={30} />
 
 
           </TouchableOpacity>
         }
-        {/* ========================================== */}
-
-
 
       </View>
-
 
     </View>
   )
@@ -231,7 +242,7 @@ const styles = StyleSheet.create({
     fontSize: 16, fontWeight: '600',
   },
   options: {
-    paddingHorizontal: 20, margin: 8, borderRadius: 4, justifyContent: 'center', paddingTop: 12, paddingBottom: 12, backgroundColor: 'white', elevation: 3
+    paddingHorizontal: 20, margin: 4, borderRadius: 4, justifyContent: 'center', paddingTop: 12, paddingBottom: 12, backgroundColor: 'white', elevation: 3
   }
   , optionText: {
     fontSize: 16, fontWeight: '600', textAlignVertical: 'center'

@@ -12,10 +12,10 @@ const Level = ({navigation}) => {
 
   return (
 
-    <View style={{marginTop:StatusBar.currentHeight,flex:1,backgroundColor:'#CDFCF6'}}>
+    <View style={{}}>
    <Header leftIcon={require('../assets/images/back.png')} title={chapter} RightIcon={require('../assets/images/dots.png')} onClickLeftIcon={()=>navigation.goBack()}/>
 
-    <View  style={{height:10}}>
+    <View  style={{height:6}}>
       
 {/* <View style={{backgroundColor:'#280274'}}>
 

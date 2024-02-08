@@ -1,26 +1,18 @@
 import { StatusBar, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect,componentWillMount } from 'react'
 import * as Animatable from 'react-native-animatable';
  const Splash = ({navigation}) => {
-useEffect(
-()=>{
 
-    setTimeout(() => {
-        navigation.navigate('Drawer')
-    }, 1000);
-},[]
+useEffect(()=>{
+  setTimeout(() => {
+    navigation.navigate('Drawer')
+}, 1000);
+},[])
 
-)
+    
 
-// useEffect(
-//   ()=>{
-  
-//       setTimeout(() => {
-//           navigation.navigate('Playground')
-//       }, 1000);
-//   },[]
-  
-//   )
+
+
   
 
   return (

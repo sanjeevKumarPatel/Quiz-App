@@ -9,17 +9,16 @@ const HEIGHT = Dimensions.get('window').height;
 
 const ModalPicker = (props) => {
 
-
-
   return (
     <TouchableOpacity onPress={()=>{props.changeModalVisibility(false)
+    
     }}
     style={styles.container}
     >
 <View style={[styles.modal,{padding:6}]}>
     {OPTION.map((item ,index)=>{
         return(
-<TouchableOpacity activeOpacity={.8} onPress={()=> {
+<TouchableOpacity key={index} activeOpacity={.8} onPress={()=> {
     if(index == 0){
 console.log("first")
 props.changeModalVisibility(false)

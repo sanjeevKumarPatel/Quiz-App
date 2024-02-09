@@ -29,7 +29,7 @@ const Results = ({navigation,route}) => {
         </ScrollView>
         <View style={{borderWidth:1,padding:12,borderColor:'blue',borderRadius:6,backgroundColor:'lightgreen', margin:10}}> 
 
-        <Animatable.Text animation={'fadeInUp'} style={{fontSize:26,fontWeight:'800',textAlign:'center',color:'red'  ,borderWidth:.4,marginHorizontal:12}}> You have socred : {points}</Animatable.Text>
+        <Animatable.Text animation={'fadeInUp'} style={{fontSize:26,fontWeight:'600',textAlign:'center',color:'red'  ,borderWidth:.4,marginHorizontal:12,borderRadius:2}}> You have socred : {points}</Animatable.Text>
 <View style={{height:12}}></View>
         <Button title="Back to Home" onPress={()=>navigation.navigate('Home')}></Button>
         </View>

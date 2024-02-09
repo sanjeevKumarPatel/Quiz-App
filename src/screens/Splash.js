@@ -11,20 +11,11 @@ useEffect(()=>{
 
     
 
-
-
-  
-
   return (
-    <View style={{justifyContent:'center',alignItems:'center',flex:1,backgroundColor:"lightgreen",padding:40}}>
-    <Animatable.Text
-    style={{color:'red',fontSize:22,fontWeight:'300',textAlign:'center'}}
-    animation="slideInUp" direction="alternate" iterationCount="infinite">Be the master of Computer , Physics, Chemistry & Biology</Animatable.Text>
-<Animatable.Text 
-style={{color:'white',fontSize:92,fontWeight:'700',textAlign:'center'}}
-animation="pulse" easing="ease-out" iterationCount="infinite">❤️</Animatable.Text>
-    
+    <View style={{alignItems:'center',flex:1,marginTop:80}}>
+ <Animatable.Image source={require("../assets/images/banner.png")} style={{width:200,height:200}}>
 
+ </Animatable.Image>
    
       <StatusBar hidden={true}/>
     </View>

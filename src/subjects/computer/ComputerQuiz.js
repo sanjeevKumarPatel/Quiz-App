@@ -10,13 +10,13 @@ const Computer = ({navigation}) => {
     <>
     <Header leftIcon={require('../../assets/images/back.png')} title={"Computer"} RightIcon={require('../../assets/images/dots.png')} onClickLeftIcon={()=>navigation.goBack()}/>
 
-    <View style={{}}>
 
 
 
 
 <ComputerChapters/>
 
+    <View style={{height:10}}>
     </View>
     </>
   )

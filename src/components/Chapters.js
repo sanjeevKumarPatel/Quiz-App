@@ -10,7 +10,7 @@ const Chapters = ({title,click}) => {
     onPress={()=>click()}
     style={{padding:8,backgroundColor:'#ffff',marginHorizontal:20,marginVertical:4,borderRadius:4,elevation:5}}>
 
-    <Text style={{color:'darkblue',fontSize:18,fontWeight:'700',padding:8,textAlign:"center",}}>{title}</Text>
+    <Text style={{color:'darkblue',fontSize:16,fontWeight:'600',padding:8,textAlign:"center",}}>{title}</Text>
       </AnimatableTouchableOpacity>
   )
 }

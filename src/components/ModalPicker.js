@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View,TouchableOpacity,Dimensions,ScrollView } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
 
 
 const OPTION = ["Home","Share this App", "Rate on Playstore"]
@@ -8,7 +9,7 @@ const HEIGHT = Dimensions.get('window').height;
 
 
 const ModalPicker = (props) => {
-
+const navigation = useNavigation()
   return (
     <TouchableOpacity onPress={()=>{props.changeModalVisibility(false)
     
@@ -20,7 +21,7 @@ const ModalPicker = (props) => {
         return(
 <TouchableOpacity key={index} activeOpacity={.8} onPress={()=> {
     if(index == 0){
-console.log("first")
+navigation.navigate('Introduction')
 props.changeModalVisibility(false)
     }
     else if(index == 1 ){

@@ -2,7 +2,6 @@ import { ActivityIndicator, Image, ScrollView, StatusBar, Alert, StyleSheet, Tex
 import React, { useEffect, useState } from 'react'
 import firestore from '@react-native-firebase/firestore';
 import Header from '../components/Header';
-import Subjects from '../components/Subjects';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
@@ -10,17 +9,19 @@ import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
 const adUnitId = __DEV__ ? TestIds.APP_OPEN : 'ca-app-pub-7036694557736762/7656612630';
 
 const AnimatableTouchableOpacity = Animatable.createAnimatableComponent(TouchableOpacity);
-const Playground = ({ route }) => {
+const Admin = ({ route }) => {
   const navigation = useNavigation();
 
   const { set, subject, chapter, level, totalLevel } = route.params
-
+const [docIds,setDocIds] = useState([])
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [points, setPoints] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState(null)
   const [questions, setQuestions] = useState([])
   const currentQuestion = questions[currentIndex]
+  const currentDocId = docIds[currentIndex]
+  console.log(currentDocId)
 
   const [answers,setAnswers] = useState([]);
  
@@ -29,8 +30,11 @@ const Playground = ({ route }) => {
   const getQuestions = () => {
     firestore().collection('EnglishQuizApp').where('identification', "==", set).get().then(
       query => {
-        const allQuestions = query.docs.map(doc => doc.data())
+        const allQuestions = query.docs.map(doc => doc.data() )
+        const allIds = query.docs.map(doc=>doc.id)
+             setDocIds(allIds)
         setQuestions(allQuestions);
+       
       })
   }
 
@@ -39,6 +43,38 @@ const Playground = ({ route }) => {
 
   }, [])
 
+  const addQuestions =()=>{
+    firestore()
+  .collection('EnglishQuizApp')
+  .add({
+    name: 'Ada Lovelace',
+    age: 30,
+  })
+  .then(() => {
+    console.log('User added!');
+  });
+  }
+
+  const updateData =()=>{
+    firestore()
+  .collection('EnglishQuizApp')
+  .doc(currentDocId)
+  .update({
+    chapter: "Personal Computer",
+  })
+  .then(() => {
+    console.log('User updated!');
+  });
+  }
+ const deleteData =()=>{
+    firestore()
+  .collection('EnglishQuizApp')
+  .doc(currentDocId)
+  .delete()
+  .then(() => {
+    console.log('User deleted!');
+  });
+ }
 
 useEffect(()=>{
 
@@ -51,9 +87,6 @@ useEffect(()=>{
     }
   }
 },[selectedAnswer])
-
-
-
 
 
   const progressPercentage = Math.floor(((currentIndex + 1) / questions.length) * 100);
@@ -79,7 +112,7 @@ useEffect(()=>{
       {/* /////////------------ header--------- ///////////////////    */}
  
 
-      <Header leftIcon={require('../assets/images/back.png')} title={"Quiz"} RightIcon={require('../assets/images/dots.png')} onClickLeftIcon={()=>navigation.goBack()}/>
+      <Header leftIcon={require('../assets/images/back.png')} title={"Admin"} RightIcon={require('../assets/images/dots.png')} onClickLeftIcon={()=>navigation.goBack()}/>
 
 
       <View style={{ height: 4, width: `${progressPercentage}%`, backgroundColor: 'green' }}>
@@ -183,25 +216,53 @@ useEffect(()=>{
 
       {/* ===========   Explainations ===================== */}
 
-      {
-        (selectedAnswer !== null) ?
+      
           <View style={{ marginHorizontal: 14,  }}>
             <Animatable.Text animation="slideInUp" style={{ paddingTop: 12, textAlign: 'center', fontWeight: '800', fontSize: 16, textDecorationLine: 'underline', marginBottom: -1,color:'darkgreen' }}>Explaination</Animatable.Text>
             <ScrollView style={{height:100,backgroundColor:'white',borderRadius:4}}>
               <Animatable.Text animation="slideInUp" direction="alternate" style={{ paddingHorizontal: 10, fontSize: 16, fontWeight: '500', color: 'black' }}>
 
                 {currentQuestion?.explaination}
+             
 
               </Animatable.Text>
             </ScrollView>
           </View>
-          : null
+        
 
-      }
+      
       {/* ====================================================   */}
       <View style={{ flexDirection: 'row', position: 'absolute', bottom: 20 ,right:10,opacity:.8}}>
-       
 
+      <TouchableOpacity style={{justifyContent:'center',marginRight:14,}} onPress={()=>   {Alert.alert('Update', 'Do you want to update this question?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () =>updateData()},
+    ]);}}><Text style={{backgroundColor:'hotpink',padding:4,borderRadius:5}}>Update</Text></TouchableOpacity>
+
+        <TouchableOpacity style={{justifyContent:'center',marginRight:14,}} onPress={()=>   {Alert.alert('Delete', 'Do you want to delete this question?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () =>deleteData()},
+    ]);}}><Text style={{backgroundColor:'hotpink',padding:4,borderRadius:5}}>Del</Text></TouchableOpacity>
+       
+      <TouchableOpacity
+            onPress={() => {
+              currentIndex >= 1 ? setCurrentIndex(currentIndex => currentIndex - 1) : null
+              setSelectedAnswer(null)
+
+            }}
+            style={{  marginRight: 14, alignItems: 'flex-end',  }}>
+            <Animatable.Image source={require('../assets/images/previous.png')} style={{ height: 45, width: 45 }} animation={'pulse'} iterationCount={30} />
+
+
+          </TouchableOpacity>
 
         {/* /// Submit buttton  and next button */}
 
@@ -217,7 +278,7 @@ useEffect(()=>{
         </TouchableOpacity>
           : <TouchableOpacity
             onPress={() => {
-              selectedAnswer !== null ? setCurrentIndex(currentIndex => currentIndex + 1) : Alert.alert("Hi..",'First selecet any option then press next button')
+                currentIndex <=  questions.length ? setCurrentIndex(currentIndex => currentIndex + 1) : Alert.alert("Hi..",'First selecet any option then press next button')
               setSelectedAnswer(null)
 
             }}
@@ -234,7 +295,7 @@ useEffect(()=>{
   )
 }
 
-export default Playground
+export default Admin
 
 const styles = StyleSheet.create({
   text: {

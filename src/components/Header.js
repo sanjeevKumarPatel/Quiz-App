@@ -59,9 +59,8 @@ const styles = StyleSheet.create({
     
   },
   linearGradient: {
-    
-    paddingHorizontal:12,paddingBottom:8,
-    borderRadius: 5,
+    paddingHorizontal:16,paddingBottom:10,
+   
     justifyContent:'space-between',alignItems:'flex-end'
     ,flexDirection:'row'
   },

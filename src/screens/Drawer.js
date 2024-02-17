@@ -14,12 +14,6 @@ const DrawerScreen = () => {
 
         <Drawer.Screen name="Home" component={Home} options={{headerShown:false}}/>
     
-    
-
-        
-
-
-
       </Drawer.Navigator>
   )
 }

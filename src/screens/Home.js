@@ -1,20 +1,47 @@
-import { StyleSheet, Text, View,ScrollView, Image,StatusBar, Alert, BackHandler } from 'react-native'
-import React, { useEffect } from 'react'
+import { StyleSheet, Text, View,ScrollView, Image,StatusBar, Alert, BackHandler, Modal ,Dimensions, TouchableOpacity} from 'react-native'
+import React, { useEffect,useState } from 'react'
+import firestore from '@react-native-firebase/firestore';
 import Subjects from '../components/Subjects'
 import Header from '../components/Header'
+import DeviceInfo from 'react-native-device-info';
 
 
 import { useNavigation, useRoute } from '@react-navigation/native'
 
-import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import { BannerAd, BannerAdSize, MobileAds, TestIds } from 'react-native-google-mobile-ads';
 import LinearGradient from 'react-native-linear-gradient'
 
 const adUnitId = __DEV__ ? TestIds.APP_OPEN : 'ca-app-pub-7036694557736762/7656612630';
 
 const Home = () => {
+  const {width,height} = Dimensions.get('window')
 const navigation = useNavigation()
 const route = useRoute();
 const {mode} = route.params
+const [modalVisibleUpdate,setModalVisibleUpdate] = useState(false)
+
+const appVersion = DeviceInfo.getVersion();
+const [updatedVersion,setUpdatedVersion] = useState("")
+const [message,setMessage] = useState("")
+
+  const sendVersion= async()=>{
+const user = await firestore().collection('version').doc('db1267ojhWaejCH6VOGp').get();
+const message = user.data()?.message;
+ let currentVersion = user.data()?.version;
+setUpdatedVersion(currentVersion)
+setMessage(message)
+
+  }
+
+
+
+  useEffect(()=>{
+
+    sendVersion();
+    
+  
+  },[])
+
 
 
 // useEffect(()=>{
@@ -122,8 +149,28 @@ sets: [
 </View>
 
 </LinearGradient>
+{  appVersion == updatedVersion? null : <Text>You need to update this app</Text>}
+
+<Modal visible={modalVisibleUpdate}>
+  <View style={{width:width,height:height,backgroundColor:' rgba(0,0,0,0.5)',justifyContent:'center',alignItems:'center',position:'absolute',top:0}}> 
+<View style={{width:'90%',backgroundColor:"white",borderRadius:20,paddingVertical:30,justifyContent:'center',alignItems:'center'}}>
+  <Text style={{fontSize:22,fontWeight:'700',}}>{"New app version " + updatedVersion +  " available."}</Text>
+
+  <View style={{width:'80%',padding:20,backgroundColor:'lightgreen',borderRadius:15,marginVertical:20}}>
+  <Text style={{color:'black' ,fontWeight:'500',fontSize:16 }}>{message}</Text>
+</View>
+
+<TouchableOpacity onPress={()=>{console.log("App is being updated")
+setModalVisibleUpdate(false)
+}} style={{width:'90%',backgroundColor:'green',height:50,justifyContent:'center',alignItems:'center',borderRadius:13}}>
+  <Text style={{color:'white',fontWeight:'500'}}>Update Now</Text>
+
+</TouchableOpacity>
+</View>
 
 
+  </View>
+</Modal>
 
   </>
   )

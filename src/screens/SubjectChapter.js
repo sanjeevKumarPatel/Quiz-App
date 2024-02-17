@@ -8,7 +8,6 @@ import Chapters from '../components/Chapters'
 const SubjectChapter = ({route}) => {
 const navigation = useNavigation()
 const  {subject,chapters,sets,mode} = route.params;
-console.log(mode)
 
   return (
     <View>

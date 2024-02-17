@@ -1,4 +1,4 @@
-import { ActivityIndicator, Image, ScrollView, StatusBar, Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Image, ScrollView,TextInput,Button, StatusBar, Modal,Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import firestore from '@react-native-firebase/firestore';
 import Header from '../components/Header';
@@ -14,7 +14,7 @@ const Admin = ({ route }) => {
 
   const { set, subject, chapter, level, totalLevel } = route.params
 const [docIds,setDocIds] = useState([])
-
+const [showModal,setShowModal] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [points, setPoints] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState(null)
@@ -42,6 +42,7 @@ const [docIds,setDocIds] = useState([])
     getQuestions()
 
   }, [])
+
 
   const addQuestions =()=>{
     firestore()
@@ -75,6 +76,8 @@ const [docIds,setDocIds] = useState([])
     console.log('User deleted!');
   });
  }
+
+ 
 
 useEffect(()=>{
 
@@ -240,7 +243,7 @@ useEffect(()=>{
         onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
       },
-      {text: 'OK', onPress: () =>updateData()},
+      {text: 'OK', onPress: () =>setShowModal(true)},
     ]);}}><Text style={{backgroundColor:'hotpink',padding:4,borderRadius:5}}>Update</Text></TouchableOpacity>
 
         <TouchableOpacity style={{justifyContent:'center',marginRight:14,}} onPress={()=>   {Alert.alert('Delete', 'Do you want to delete this question?', [
@@ -291,6 +294,35 @@ useEffect(()=>{
 
       </View>
 
+
+
+      <Modal visible={showModal} >
+  <ScrollView>
+  <View style={{flex:1,justifyContent:'center',alignItems:'center',}}>
+
+<View style={{height:'80%',width:'80%',backgroundColor:'lightyellow',alignItems:'center',justifyContent:'center',}}>
+<TextInput placeholder='Question' style={styles.inputText}></TextInput>
+<TextInput placeholder='Correct Option' style={styles.inputText}></TextInput>
+<TextInput placeholder='Option A' style={styles.inputText}></TextInput>
+<TextInput placeholder='Option B' style={styles.inputText}></TextInput>
+<TextInput placeholder='Option C' style={styles.inputText}></TextInput>
+<TextInput placeholder='Option D' style={styles.inputText}></TextInput>
+<TextInput placeholder='Explaination' style={styles.inputText}></TextInput>
+<View style={{flexDirection:'row' ,gap:8,margin:12}}>
+
+<Button title="Cancel" onPress={()=>setShowModal(false)}></Button>
+<Button title="Update" onPress={()=>{updateData()
+setShowModal(false)
+Alert.alert('Question has been updated')
+}}></Button>
+</View>
+
+
+</View>
+  </View>
+  </ScrollView>
+</Modal>
+
     </View>
   )
 }
@@ -308,4 +340,5 @@ const styles = StyleSheet.create({
   , optionText: {
     fontSize: 16, fontWeight: '600', textAlignVertical: 'center',color:'black'
   }
+  ,inputText:{borderColor:'red',borderWidth:1,width:'90%',borderRadius:6,paddingLeft:12,marginVertical:4}
 })

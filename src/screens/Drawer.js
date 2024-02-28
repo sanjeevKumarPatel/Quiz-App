@@ -12,7 +12,6 @@ const DrawerScreen = () => {
     <Drawer.Navigator>
         <Drawer.Screen name="Introduction" component={Introduction} options={{headerShown:false}}/>
 
-        <Drawer.Screen name="Home" component={Home} options={{headerShown:false}}/>
     
       </Drawer.Navigator>
   )

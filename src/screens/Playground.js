@@ -102,6 +102,8 @@ useEffect(()=>{
 
 
       </View>
+    
+
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 12, }}>
 
         <Animatable.Text animation={'bounce'} style={styles.text}> Que_ {currentIndex + 1}/{questions.length}</Animatable.Text>
@@ -114,7 +116,7 @@ useEffect(()=>{
         </Animatable.Text >
       </View>
       {/* --------------- Questions  ------------------- */}
-
+<ScrollView style={{marginBottom:50}}>
       <View style={{ padding: 10 }}>
         <Animatable.Text animation={'fadeInRight'} style={{ borderWidth: .5, padding: 8, fontSize: 18, fontWeight: '600', color: 'darkblue', borderRadius: 2,marginBottom:4 }}>
           Q.{currentIndex + 1}_ {currentQuestion ? currentQuestion?.question : <ActivityIndicator   />}
@@ -187,22 +189,23 @@ useEffect(()=>{
         (selectedAnswer !== null) ?
           <View style={{ marginHorizontal: 14,  }}>
             <Animatable.Text animation="slideInUp" style={{ paddingTop: 12, textAlign: 'center', fontWeight: '800', fontSize: 16, textDecorationLine: 'underline', marginBottom: -1,color:'darkgreen' }}>Explaination</Animatable.Text>
-            <ScrollView style={{height:100,backgroundColor:'white',borderRadius:4}}>
-              <Animatable.Text animation="slideInUp" direction="alternate" style={{ paddingHorizontal: 10, fontSize: 16, fontWeight: '500', color: 'black' }}>
+            {/* <ScrollView style={{height:100,backgroundColor:'white',borderRadius:4}}> */}
+              <Animatable.Text animation="slideInUp" direction="alternate" style={{ paddingHorizontal: 10, fontSize: 16, fontWeight: '500', color: 'black',backgroundColor:'white' }}>
 
                 {currentQuestion?.explaination}
 
               </Animatable.Text>
-            </ScrollView>
+            {/* </ScrollView> */}
           </View>
           : null
 
       }
+        </ScrollView>
       {/* ====================================================   */}
-      <View style={{ flexDirection: 'row', position: 'absolute', bottom: 20 ,right:10,opacity:.8}}>
+      <View style={{ flexDirection: 'row', position: 'absolute', bottom: 0 ,right:0,opacity:.8,backgroundColor:"white",width:'100%',justifyContent:'space-between'}}>
        
 
-
+<Text></Text>
         {/* /// Submit buttton  and next button */}
 
         {(currentIndex + 1 === questions.length) ? <TouchableOpacity
@@ -212,7 +215,7 @@ useEffect(()=>{
 
           }}
           style={{ justifyContent: 'flex-end', marginRight: 14, alignItems: 'flex-end', }}>
-       <Animatable.Image animation={'bounce'}  iterationCount={4} source={require('../assets/images/check.png')} style={{height:45,width:45,}}/>
+       <Animatable.Image animation={'pulse'}  iterationCount={4} source={require('../assets/images/check.png')} style={{height:45,width:45,}}/>
 
         </TouchableOpacity>
           : <TouchableOpacity
@@ -221,7 +224,7 @@ useEffect(()=>{
               setSelectedAnswer(null)
 
             }}
-            style={{  marginRight: 14, alignItems: 'flex-end',  }}>
+            style={{  marginRight: 2,marginBottom:1, alignItems: 'flex-end',  }}>
             <Animatable.Image source={require('../assets/images/next.png')} style={{ height: 45, width: 45 }} animation={'pulse'} iterationCount={30} />
 
 
@@ -230,6 +233,7 @@ useEffect(()=>{
 
       </View>
 
+  
     </View>
   )
 }

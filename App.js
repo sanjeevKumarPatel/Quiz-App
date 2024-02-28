@@ -30,7 +30,7 @@ const App = () => {
     <Stack.Screen name="Drawer" component={Drawer} options={{headerShown:false}}/>
     <Stack.Screen name="SubjectChapter" component={SubjectChapter} options={{headerShown:false}}/>
     
-    
+    <Stack.Screen  name="Home" component={Home} options={{headerShown:false}}/>
     <Stack.Screen name="Level" component={Level} options={{headerShown:false}}/>
     <Stack.Screen name="Study" component={Study} options={{headerShown:false}}/>
     <Stack.Screen name="Playground" component={Playground} options={{headerShown:false}}/>

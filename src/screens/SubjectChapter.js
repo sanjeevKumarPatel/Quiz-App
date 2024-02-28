@@ -10,7 +10,7 @@ const navigation = useNavigation()
 const  {subject,chapters,sets,mode} = route.params;
 
   return (
-    <View>
+    <View style={{flex:1}}>
    <Header leftIcon={require('../assets/images/back.png')} title={subject  + "_"+  mode +"_mode"} RightIcon={require('../assets/images/dots.png')} onClickLeftIcon={()=>navigation.goBack()}/>
 <View style={{height:6}}></View>
 <FlatList

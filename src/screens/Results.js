@@ -10,7 +10,7 @@ const Results = ({navigation,route}) => {
     <View style={{flex:1,justifyContent:'center'}}>
    
    
-   <Header leftIcon={require('../assets/images/home.png')} title={"Result"} RightIcon={require('../assets/images/dots.png')} onClickLeftIcon={()=>navigation.navigate('Home')}/>
+   <Header leftIcon={require('../assets/images/home.png')} title={"Result"} RightIcon={require('../assets/images/dots.png')} onClickLeftIcon={()=>navigation.navigate('Introduction')}/>
 
 
       <ScrollView style={{marginTop:6}}>
@@ -22,7 +22,7 @@ const Results = ({navigation,route}) => {
 
       </View>
       :<View  key={Math.random()*100} style={{flexDirection:'row',padding:8,alignItems:'center',borderWidth: .6,marginHorizontal:45,marginVertical:2,justifyContent:'space-around',borderRadius:4}}>
-      <Animatable.Text animation={'fadeInLeft'} style={{fontSize:20,fontWeight:'700'}}>Que.{question} :-</Animatable.Text>
+      <Animatable.Text animation={'fadeInLeft'} style={{fontSize:20,fontWeight:'700',color:'black'}}>Que.{question} :-</Animatable.Text>
       <Animatable.Image animation={'fadeInRight'} source={require('../assets/images/no.png')} style={{height:30,width:30}}/>
 
       </View>))}
@@ -31,7 +31,7 @@ const Results = ({navigation,route}) => {
 
         <Animatable.Text animation={'fadeInUp'} style={{fontSize:26,fontWeight:'600',textAlign:'center',color:'red'  ,borderWidth:.4,marginHorizontal:12,borderRadius:2}}> You have socred : {points}</Animatable.Text>
 <View style={{height:12}}></View>
-        <Button title="Back to Home" onPress={()=>navigation.navigate('Home')}></Button>
+        <Button title="Back to Home" onPress={()=>navigation.navigate('Introduction')}></Button>
         </View>
 
     </View>

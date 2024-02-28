@@ -10,7 +10,7 @@ import org.devio.rn.splashscreen.SplashScreen;
 class MainActivity : ReactActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
-        SplashScreen.show(this)
+        // SplashScreen.show(this)
         super.onCreate(savedInstanceState)
     }
 
@@ -26,4 +26,5 @@ class MainActivity : ReactActivity() {
    */
   override fun createReactActivityDelegate(): ReactActivityDelegate =
       DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
+ 
 }

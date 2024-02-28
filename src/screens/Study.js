@@ -76,8 +76,8 @@ Level: {level}/{totalLevel}
 data={questions}
 renderItem={({item,index})=>
 {
- return (<View style={{marginHorizontal:12,marginBottom:6,borderColor:'skyblue',borderWidth:1,borderRadius:4,padding:8}}>
-    <Text style={{color:'blue' ,fontSize:18, fontWeight:'400' ,borderRadius:4}}>{`Que_${index + 1 }. ${item?.question }`}  </Text>
+ return (<View style={{marginHorizontal:12,marginBottom:6,borderColor:'gray',borderWidth:1,borderRadius:4,padding:8}}>
+    <Text style={{color:'darkred' ,fontSize:18, fontWeight:'400' ,borderRadius:4}}>{`Que_${index + 1 }. ${item?.question }`}  </Text>
     {/* <Text>Answer: { item?.correctAnswer === 'a'? item?.optionA : item?.correctAnswer === 'b'? item?.optionB : item?.correctAnswer === 'c'? item.optionC : item?.correctAnswer === 'd'? item?.optionD : null}</Text> */}
 
 <Text style={{color:'darkgreen' ,fontSize:16, fontWeight:'700',borderBottomWidth:1,borderColor:'skyblue',paddingBottom:6}}>Ans: {correctAnswerFinder(item)}</Text>

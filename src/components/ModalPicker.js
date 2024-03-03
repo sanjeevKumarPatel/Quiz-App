@@ -2,11 +2,9 @@ import { StyleSheet, Text, View,TouchableOpacity,Dimensions,ScrollView } from 'r
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 
-
 const OPTION = ["Home","Share this App", "Rate on Playstore"]
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
-
 
 const ModalPicker = (props) => {
 const navigation = useNavigation()

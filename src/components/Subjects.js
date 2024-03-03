@@ -5,17 +5,17 @@ import LinearGradient from 'react-native-linear-gradient';
 
 const AnimatableTouchableOpacity = Animatable.createAnimatableComponent(TouchableOpacity);
 
-const Subjects = ({title,image,onClick,bgColor}) => {
+const Subjects = ({title,image,onClick,bgColor,textColor='black'}) => {
   return (
 
     <AnimatableTouchableOpacity  animation={'pulse'} iterationCount={5} 
     onPress={onClick}
-    style={{width:'40%',height:'30%', paddingHorizontal:'5%',alignItems:'center',margin:"5%",borderRadius:5,elevation:4, paddingTop:'4%',backgroundColor:bgColor}}>
-    <View style={{borderWidth:2,borderRadius:78,padding:8,justifyContent:'center',alignItems:'center'}}>
+    style={{width:'40%',height:'30%', paddingHorizontal:'5%',alignItems:'center',margin:"5%",borderRadius:15,elevation:4, paddingTop:'4%',backgroundColor:bgColor}}>
+    <View style={{borderWidth:.5,borderRadius:18,padding:8,justifyContent:'center',alignItems:'center',borderColor:'gray'}}>
       
     <Image source={image} style={{height:100,width:100,}} />
       </View> 
-<Text style={{fontSize:18,fontWeight:'500',textAlign:'center',paddingTop:'10%',color:'black'}}>{title}</Text>
+<Text style={{fontSize:18,fontWeight:'500',textAlign:'center',paddingTop:'10%',color:textColor}}>{title}</Text>
     </AnimatableTouchableOpacity>
   )
 }

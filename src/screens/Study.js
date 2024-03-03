@@ -80,8 +80,8 @@ renderItem={({item,index})=>
     <Text style={{color:'darkred' ,fontSize:18, fontWeight:'400' ,borderRadius:4}}>{`Que_${index + 1 }. ${item?.question }`}  </Text>
     {/* <Text>Answer: { item?.correctAnswer === 'a'? item?.optionA : item?.correctAnswer === 'b'? item?.optionB : item?.correctAnswer === 'c'? item.optionC : item?.correctAnswer === 'd'? item?.optionD : null}</Text> */}
 
-<Text style={{color:'darkgreen' ,fontSize:16, fontWeight:'700',borderBottomWidth:1,borderColor:'skyblue',paddingBottom:6}}>Ans: {correctAnswerFinder(item)}</Text>
-    <Text style={{color:'darkblue' ,fontSize:16 ,fontWeight:'600',marginTop:10}}>{`Explaination: ${item?.explaination}`}</Text>
+<Text style={{color:'darkgreen' ,fontSize:16, fontWeight:'400',borderBottomWidth:1,borderColor:'skyblue',paddingBottom:6}}>Ans: {correctAnswerFinder(item)}</Text>
+    <Text style={{color:'darkblue' ,fontSize:16 ,fontWeight:'400',marginTop:10}}>{`Explaination: ${item?.explaination}`}</Text>
 
 
     </View>

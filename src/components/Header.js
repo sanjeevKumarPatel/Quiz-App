@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View ,Modal,Dimensions, Stat
 import React, { useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient';
 import ModalPicker from './ModalPicker'
+import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 
 const height2 = (2 * StatusBar.currentHeight)
 
@@ -21,20 +22,20 @@ const changeModalVisibility = (bool)=>{
   return (
    
 <>
-<StatusBar translucent={true} backgroundColor={'transparent'} hidden={false} barStyle="dark-content" />
+<StatusBar translucent={true} backgroundColor={'transparent'}  barStyle="dark-content" />
 
-<LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#82d9e3', '#a4e7cd',]} style={styles.linearGradient}>
+<LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#b2e3e6', '#aeead3',]} style={styles.linearGradient}>
 
 
-<TouchableOpacity style={styles.btn} onPress={onClickLeftIcon}>
+{/* <TouchableOpacity style={styles.btn} onPress={onClickLeftIcon}>
 <Image source={leftIcon} style={{height:18,width:18,tintColor:'#000',}} />
-</TouchableOpacity>
+</TouchableOpacity> */}
 
 <Text style={styles.buttonText}>{title.length < 23 ? title : title.slice(0,24)+ "..."  }</Text>
-
+{/* 
 <TouchableOpacity style={styles.btn} onPress={()=>changeModalVisibility(true)} >
-<Image source={RightIcon} style={{height:18,width:18,tintColor:'#000',}}/>
-</TouchableOpacity>
+<Image source={RightIcon} style={{height:moderateVerticalScale(18),width:moderateScale(18),tintColor:'#000',}}/>
+</TouchableOpacity> */}
 
 </LinearGradient>
 
@@ -54,14 +55,13 @@ export default Header
 
 const styles = StyleSheet.create({
   btn:{
-    width:StatusBar.currentHeight,height:height2,justifyContent:'flex-end',alignItems:'center',
-
+   justifyContent:'flex-end',alignItems:'center',
     
   },
   linearGradient: {
-    paddingHorizontal:16,paddingBottom:10,
+    paddingHorizontal:12,paddingVertical:10,paddingTop:StatusBar.currentHeight,
    
-    justifyContent:'space-between',alignItems:'flex-end'
+    justifyContent:'center',alignItems:'center'
     ,flexDirection:'row'
   },
   buttonText: {

@@ -68,7 +68,7 @@ setMessage(message)
 
 
 
-<LinearGradient start={{x: 0, y: 1}} end={{x: 1, y: 1}} colors={[ '#BBE2EC','#FFF6E9',]} style={styles.linearGradient}>
+<LinearGradient start={{x: 0, y: 1}} end={{x: 1, y: 1}} colors={[ '#FFF6E9','#BBE2EC','#FFF6E9','#BBE2EC','#FFF6E9',]} style={styles.linearGradient}>
 <View style={{flexDirection:'row',flex:1,flexWrap:'wrap'}}>
 
 
@@ -98,7 +98,7 @@ sets: [["phy0101","phy0102","phy0103","phy0104","phy0105","phy0106","phy0107","p
 ["phy0201","phy0202","phy0203","phy0204","phy0205","phy0206","phy0207","phy0208","phy0209","phy0210"],
 ["phy0301","phy0302","phy0303","phy0304","phy0305","phy0306","phy0307","phy0308","phy0309",]]
 }
-)} bgColor={'#EFF396'}/>
+)} bgColor={'#124076'} textColor={'#fff'}/>
 
 
 <Subjects title={"Chemistry"} image={require('../assets/images/h2o.png')} onClick={()=>navigation.navigate('SubjectChapter',{
@@ -119,7 +119,7 @@ sets: [
 
 })}  bgColor={'lightgreen'}/>
 
-<Subjects title={"Biology"} image={require('../assets/images/botany.png')} onClick={()=>navigation.navigate('SubjectChapter',
+<Subjects title={"Biology"}  image={require('../assets/images/botany.png')} onClick={()=>navigation.navigate('SubjectChapter',
 {
   mode:mode,
   subject:"Biology",
@@ -149,6 +149,7 @@ sets: [
 </View>
 
 </LinearGradient>
+{/* 
 {  appVersion == updatedVersion? null : <Text>You need to update this app</Text>}
 
 <Modal visible={modalVisibleUpdate}>
@@ -170,7 +171,7 @@ setModalVisibleUpdate(false)
 
 
   </View>
-</Modal>
+</Modal> */}
 
   </>
   )
@@ -181,7 +182,7 @@ export default Home
 const styles = StyleSheet.create({
   linearGradient: {
     
-    paddingHorizontal:12,paddingBottom:8,
+    paddingBottom:8,
     borderRadius: 5,
     justifyContent:'space-between'
     ,flexDirection:'row'

@@ -6,6 +6,7 @@ import Subjects from '../components/Subjects';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import { moderateScale } from 'react-native-size-matters';
 
 const adUnitId = __DEV__ ? TestIds.APP_OPEN : 'ca-app-pub-7036694557736762/7656612630';
 
@@ -88,7 +89,7 @@ useEffect(()=>{
 
       </View>
       {/* ---------------- Subject and Sets and level ------------ */}
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 12 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: moderateScale(12) }}>
 
         <Animatable.Text animation={'bounceIn'}  style={styles.text}>{subject} </Animatable.Text>
         <Text style={[styles.text]}>
@@ -104,7 +105,7 @@ useEffect(()=>{
       </View>
     
 
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 12, }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal:  moderateScale(12), }}>
 
         <Animatable.Text animation={'bounce'} style={styles.text}> Que_ {currentIndex + 1}/{questions.length}</Animatable.Text>
         
@@ -118,7 +119,7 @@ useEffect(()=>{
       {/* --------------- Questions  ------------------- */}
 <ScrollView style={{marginBottom:50}}>
       <View style={{ padding: 10 }}>
-        <Animatable.Text animation={'fadeInRight'} style={{ borderWidth: .5, padding: 8, fontSize: 18, fontWeight: '600', color: 'darkblue', borderRadius: 2,marginBottom:4 }}>
+        <Animatable.Text animation={'fadeInRight'} style={{ borderWidth: .5, padding:  moderateScale(8), fontSize:  moderateScale(18), fontWeight: '500', color: 'darkblue', borderRadius:  moderateScale(2),marginBottom: moderateScale(4) }}>
           Q.{currentIndex + 1}_ {currentQuestion ? currentQuestion?.question : <ActivityIndicator   />}
         </Animatable.Text>
 
@@ -202,33 +203,34 @@ useEffect(()=>{
       }
         </ScrollView>
       {/* ====================================================   */}
-      <View style={{ flexDirection: 'row', position: 'absolute', bottom: 0 ,right:0,opacity:.8,backgroundColor:"white",width:'100%',justifyContent:'space-between'}}>
+      <View style={{ flexDirection: 'row', position: 'absolute', bottom: moderateScale(12) ,right:moderateScale(12),opacity:.8,width:'100%',justifyContent:'space-between'}}>
        
 
 <Text></Text>
         {/* /// Submit buttton  and next button */}
 
-        {(currentIndex + 1 === questions.length) ? <TouchableOpacity
+        {(currentIndex + 1 === questions.length) ? (<TouchableOpacity
           onPress={() => { 
             selectedAnswer !== null ? (navigation.navigate('Results',{points:points,answers:answers}),
             setSelectedAnswer(null)) :  Alert.alert("Hi..",'First selecet any option then press Submit button')
 
           }}
-          style={{ justifyContent: 'flex-end', marginRight: 14, alignItems: 'flex-end', }}>
-       <Animatable.Image animation={'pulse'}  iterationCount={4} source={require('../assets/images/check.png')} style={{height:45,width:45,}}/>
+          style={{ justifyContent: 'flex-end', marginRight: moderateScale(10), alignItems: 'flex-end', }}>
+       <Animatable.Image animation={'pulse'}  iterationCount={4} source={require('../assets/images/check.png')} style={styles.nextButton}/>
 
-        </TouchableOpacity>
-          : <TouchableOpacity
+        </TouchableOpacity>)
+
+          : (<TouchableOpacity
             onPress={() => {
               selectedAnswer !== null ? setCurrentIndex(currentIndex => currentIndex + 1) : Alert.alert("Hi..",'First selecet any option then press next button')
               setSelectedAnswer(null)
 
             }}
             style={{  marginRight: 2,marginBottom:1, alignItems: 'flex-end',  }}>
-            <Animatable.Image source={require('../assets/images/next.png')} style={{ height: 45, width: 45 }} animation={'pulse'} iterationCount={30} />
+            <Animatable.Image source={require('../assets/images/next.png')} style={styles.nextButton} animation={'pulse'} iterationCount={30} />
 
 
-          </TouchableOpacity>
+          </TouchableOpacity>)
         }
 
       </View>
@@ -246,9 +248,12 @@ const styles = StyleSheet.create({
     fontSize: 16, fontWeight: '600',
   },
   options: {
-    paddingHorizontal: 20, margin: 4, borderRadius: 4, justifyContent: 'center', paddingTop: 12, paddingBottom: 12, backgroundColor: 'white', elevation: 3
+    paddingHorizontal:  moderateScale(20), margin:  moderateScale(2), borderRadius: 4, justifyContent: 'center', paddingTop:  moderateScale(12), paddingBottom:  moderateScale(12), backgroundColor: 'white', elevation: 3
   }
   , optionText: {
-    fontSize: 16, fontWeight: '600', textAlignVertical: 'center',color:'black'
-  }
+    fontSize:  moderateScale(16), fontWeight: '400', textAlignVertical: 'center',color:'black'
+  },
+  nextButton:{
+    height:moderateScale(50),width:moderateScale(50),}
+  
 })

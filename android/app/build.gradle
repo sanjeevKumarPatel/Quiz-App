@@ -80,8 +80,8 @@ android {
         applicationId "com.computerquizapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 16
-        versionName "2.6"
+        versionCode 19
+        versionName "2.9"
     }
     signingConfigs {
       release {

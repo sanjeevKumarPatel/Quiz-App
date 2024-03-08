@@ -4,7 +4,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import ModalPicker from './ModalPicker'
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 
-const height2 = (2 * StatusBar.currentHeight)
 
 
 const Header = ({title,leftIcon,RightIcon,onClickLeftIcon,onClickRightIcon}) => {
@@ -18,7 +17,7 @@ const changeModalVisibility = (bool)=>{
   setIsModalVisible(bool)
 }
 
-
+console.log(StatusBar.currentHeight)
   return (
    
 <>
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
     
   },
   linearGradient: {
-    paddingHorizontal:12,paddingVertical:10,paddingTop:StatusBar.currentHeight,
+    paddingHorizontal:moderateScale(10),paddingVertical:moderateVerticalScale(4),paddingTop:moderateVerticalScale(StatusBar.currentHeight > 50 ? StatusBar.currentHeight -15 : StatusBar.currentHeight),
    
     justifyContent:'center',alignItems:'center'
     ,flexDirection:'row'

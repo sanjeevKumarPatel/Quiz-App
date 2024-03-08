@@ -69,7 +69,7 @@ setMessage(message)
 
 
 <LinearGradient start={{x: 0, y: 1}} end={{x: 1, y: 1}} colors={[ '#FFF6E9','#BBE2EC','#FFF6E9','#BBE2EC','#FFF6E9',]} style={styles.linearGradient}>
-<View style={{flexDirection:'row',flex:1,flexWrap:'wrap'}}>
+<View style={{flexDirection:'row',flex:1,flexWrap:'wrap',justifyContent:'center'}}>
 
 
 
@@ -98,26 +98,9 @@ sets: [["phy0101","phy0102","phy0103","phy0104","phy0105","phy0106","phy0107","p
 ["phy0201","phy0202","phy0203","phy0204","phy0205","phy0206","phy0207","phy0208","phy0209","phy0210"],
 ["phy0301","phy0302","phy0303","phy0304","phy0305","phy0306","phy0307","phy0308","phy0309",]]
 }
-)} bgColor={'#124076'} textColor={'#fff'}/>
+)} bgColor={'#784096'} textColor={'#fff'}/>
 
 
-<Subjects title={"Chemistry"} image={require('../assets/images/h2o.png')} onClick={()=>navigation.navigate('SubjectChapter',{
-mode:mode,
-subject:"Chemistry",
-chapters:["Nature and composition of substances",
-"Atomic structure","Radioactivity","Chemical Bonding","Oxidation and Reduction","Acids Bases and Salt"],
-sets: [
-  ["chem0101","chem0102","chem0103",],
-["chem0201","chem0202","chem0203","chem0204","chem0205",],
-["chem0301","chem0302","chem0303",]
-,["chem0401","chem0402",],
-["chem0501","chem0502",],
-["chem0601","chem0602","chem0603",]
-
-
-]
-
-})}  bgColor={'lightgreen'}/>
 
 <Subjects title={"Biology"}  image={require('../assets/images/botany.png')} onClick={()=>navigation.navigate('SubjectChapter',
 {
@@ -141,7 +124,27 @@ sets: [
 ]
   
   }
-)} bgColor={'#FFE7E7'}/>
+)} bgColor={'#714232'} textColor='white'/>
+
+
+<Subjects title={"Chemistry"} image={require('../assets/images/h2o.png')} onClick={()=>navigation.navigate('SubjectChapter',{
+mode:mode,
+subject:"Chemistry",
+chapters:["Nature and composition of substances",
+"Atomic structure","Radioactivity","Chemical Bonding","Oxidation and Reduction","Acids Bases and Salt"],
+sets: [
+  ["chem0101","chem0102","chem0103",],
+["chem0201","chem0202","chem0203","chem0204","chem0205",],
+["chem0301","chem0302","chem0303",]
+,["chem0401","chem0402",],
+["chem0501","chem0502",],
+["chem0601","chem0602","chem0603",]
+
+
+]
+
+})}  bgColor={'lightgreen'}/>
+
 
 
 

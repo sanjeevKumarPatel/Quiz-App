@@ -44,11 +44,11 @@ return unsubcribe
 
 <Header leftIcon={require('../assets/images/menu.png')} title={"Choose Mode"} RightIcon={require('../assets/images/dots.png')} onClickLeftIcon={()=>navigation.openDrawer()}/>
 
-<View style={{flexDirection:'row',flex:1,flexWrap:'wrap'}}>
+<View style={{flexDirection:'row',flex:1,flexWrap:'wrap',justifyContent:'center'}}>
 
 <Subjects title={"Study Mode"} image={require('../assets/images/book.png')} onClick={()=>navigation.navigate('Home',{mode:'study'})} bgColor={'#FFE7E7'}/>
 
-<Subjects title={"Quiz Mode"} image={require('../assets/images/quiz.png')} onClick={()=>navigation.navigate('Home',{mode:'quiz'})}  bgColor={'lightgreen'}/>
+<Subjects title={"Quiz Mode"} image={require('../assets/images/quiz.png')} onClick={()=>navigation.navigate('Home',{mode:'quiz'})}  bgColor={'#FF8E8F'}/>
 
 {/* <Subjects title={"Admin Mode"} image={require('../assets/images/quiz.png')} onClick={()=>navigation.navigate('Home',{mode:'admin'})}  bgColor={'pink'}/> */}
 
